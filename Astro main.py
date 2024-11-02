@@ -53,7 +53,7 @@ class Application(tk.Frame):
         self.title_bar.pack(fill=tk.X)
 
         # Add title label
-        self.title_label = tk.Label(self.title_bar, text="AI Screenshot Processor", 
+        self.title_label = tk.Label(self.title_bar, text="Astro AI", 
                                   bg='gray', fg='white')
         self.title_label.pack(side=tk.LEFT, padx=10)
 
