@@ -1,15 +1,19 @@
 import sys
 import subprocess
-import pkg_resources
+try:
+    from importlib.metadata import distributions
+    installed = {dist.metadata['Name'].lower() for dist in distributions()}
+except ImportError:
+    import pkg_resources
+    installed = {pkg.key for pkg in pkg_resources.working_set}
 
 # Check and install required packages
-required = {'pyautogui', 'requests', 'Pillow'}  # Removed 'tkinter' from the list
-installed = {pkg.key for pkg in pkg_resources.working_set}
+required = {'pyautogui', 'requests', 'Pillow'}
 missing = required - installed
 
 if missing:
     python = sys.executable
-    subprocess.check_call([python, '-m', 'pip', 'install', *missing], stdout=subprocess.DEVNULL)
+    subprocess.check_call([python, '-m', 'pip', 'install', 'setuptools', *missing], stdout=subprocess.DEVNULL)
 
 # Now try to import tkinter
 try:
@@ -66,9 +70,17 @@ class Application(tk.Frame):
         self.master.geometry(f'+{event.x_root}+{event.y_root}')
 
     def create_widgets(self):
+        # Create a frame to hold all widgets
+        self.main_frame = tk.Frame(self)
+        self.main_frame.pack(expand=True, fill="both")
+        
+        # Create output label with scrollbar
+        self.output_frame = tk.Frame(self.main_frame)
+        self.output_frame.pack(expand=True, fill="both", padx=10, pady=10)
+        
         # Create output label
         self.output_label = tk.Label(
-            self,
+            self.output_frame,
             wraplength=400,
             justify="left",
             bg='white',  # white background
@@ -77,11 +89,15 @@ class Application(tk.Frame):
             padx=5,
             pady=5
         )
-        self.output_label.pack(expand=True, fill="both", padx=10, pady=10)
+        self.output_label.pack(expand=True, fill="both")
+
+        # Create a separate frame for the button that won't expand
+        self.button_frame = tk.Frame(self)
+        self.button_frame.pack(fill="x", padx=10, pady=(0, 10))  # Add padding at the bottom
 
         # Create screenshot button
         self.screenshot_button = tk.Button(
-            self,
+            self.button_frame,
             text="Take Screenshot",
             command=self.take_screenshot,
             bg='white',  # white background
@@ -90,7 +106,7 @@ class Application(tk.Frame):
             padx=20,
             pady=10
         )
-        self.screenshot_button.pack(pady=10)
+        self.screenshot_button.pack()
 
     def configure_window(self):
         # Set window properties
@@ -111,8 +127,8 @@ class Application(tk.Frame):
         # Get the required width for the text
         text_width = self.output_label.winfo_reqwidth()
         
-        # Add padding for the window
-        window_height = min(text_height + 100, 800)  # Maximum height of 800 pixels
+        # Add padding for the window and ensure space for the button
+        window_height = min(text_height + 150, 800)  # Maximum height of 800 pixels, added more space for button
         window_width = min(max(300, text_width + 40), 1000)  # Maximum width of 1000 pixels
         
         # Set the new window size
@@ -143,7 +159,6 @@ class Application(tk.Frame):
             
             # Make window visible again
             self.master.attributes('-alpha', 1.0)
-            self.update_output_text("Processing screenshot...")
             
             # Send to server
             try:
