@@ -30,4 +30,4 @@ The AI Screenshot Processor is a Python application that captures screenshots an
 
 4. let it install the required libraries
 
-#enjoy
+##enjoy
