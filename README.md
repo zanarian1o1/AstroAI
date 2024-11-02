@@ -13,7 +13,7 @@ Astro AI is a Python application that captures screenshots and sends them to a s
 
 ## Requirements
 
-- Python 3.x
+- Python 3.11
 - Required Python packages: (will be installed automatically when running the program)
   - `pyautogui`
   - `requests`
