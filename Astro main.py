@@ -36,7 +36,7 @@ class Application(tk.Frame):
     def __init__(self, master=None):
         super().__init__(master)
         self.master = master
-        self.master.title("AI Screenshot Processor")
+        self.master.title("Astro AI")
         self.pack(expand=True, fill="both")
         
         # Configure the server URL where your Flask server is running
