@@ -19,6 +19,7 @@ The AI Screenshot Processor is a Python application that captures screenshots an
   - `requests`
   - `Pillow`
   - `tkinter` (usually included with Python installations)
+  - `setuptools`
 
 ### Installation
 
