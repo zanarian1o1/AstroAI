@@ -1,8 +1,8 @@
-# AI Screenshot Processor
+# Astro AI Screenshot Processor
 
 ## Overview
 
-The AI Screenshot Processor is a Python application that captures screenshots and sends them to a server for processing using artificial intelligence. The application features a custom GUI built with Tkinter and utilizes the `pyautogui` library for taking screenshots. The processed results are displayed in the application window.
+Astro AI is a Python application that captures screenshots and sends them to a server for processing using artificial intelligence. The application features a custom GUI built with Tkinter and utilizes the `pyautogui` library for taking screenshots. The processed results are displayed in the application window.
 
 ## Features
 
