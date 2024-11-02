@@ -1,4 +1,4 @@
-# AI Screenshot Processor
+# AI Screenshot Processor (Dark Mode)
 
 ## Overview
 
