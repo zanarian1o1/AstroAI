@@ -1,3 +1,4 @@
+import os
 import sys
 import subprocess
 try:
@@ -38,8 +39,9 @@ class Application(tk.Frame):
         self.master = master
         self.master.title("Astro AI")
         self.pack(expand=True, fill="both")
-        
-        # Configure the server URL where your Flask server is running
+        self.configure(bg='black')
+
+        # Configure the server URL
         self.SERVER_URL = "http://192.168.10.118:5000/process-image"
 
         # Create and configure the main window
@@ -47,20 +49,25 @@ class Application(tk.Frame):
         self.create_widgets()
         self.configure_window()
 
+        style = ttk.Style()
+        style.configure("TFrame", background="black")
+        style.configure("TLabel", background="black", foreground="white")
+        style.configure("TButton", background="black", foreground="white")
+
     def create_title_bar(self):
         # Create custom title bar
-        self.title_bar = tk.Frame(self, bg='gray', relief='raised', bd=2)
+        self.title_bar = tk.Frame(self, bg='black', relief='raised', bd=2)
         self.title_bar.pack(fill=tk.X)
 
         # Add title label
         self.title_label = tk.Label(self.title_bar, text="Astro AI", 
-                                  bg='gray', fg='white')
+                                  bg='black', fg='white')
         self.title_label.pack(side=tk.LEFT, padx=10)
 
         # Add close button
         self.close_button = tk.Button(self.title_bar, text='X', 
                                     command=self.master.destroy, 
-                                    bg='gray', fg='white', relief='flat')
+                                    bg='black', fg='white', relief='flat')
         self.close_button.pack(side=tk.RIGHT, padx=5)
 
         # Bind moving window to title bar
@@ -70,50 +77,37 @@ class Application(tk.Frame):
         self.master.geometry(f'+{event.x_root}+{event.y_root}')
 
     def create_widgets(self):
-        # Create a frame to hold all widgets
-        self.main_frame = tk.Frame(self)
+        # Create main frame using ttk
+        self.main_frame = ttk.Frame(self)
         self.main_frame.pack(expand=True, fill="both")
         
-        # Create output label with scrollbar
-        self.output_frame = tk.Frame(self.main_frame)
+        # Create output frame
+        self.output_frame = ttk.Frame(self.main_frame)
         self.output_frame.pack(expand=True, fill="both", padx=10, pady=10)
         
         # Create output label
-        self.output_label = tk.Label(
+        self.output_label = ttk.Label(
             self.output_frame,
             wraplength=400,
-            justify="left",
-            bg='white',  # white background
-            fg='black',  # black text
-            relief='sunken',  # Sunken effect
-            padx=5,
-            pady=5
+            justify="left"
         )
         self.output_label.pack(expand=True, fill="both")
 
-        # Create a separate frame for the button that won't expand
-        self.button_frame = tk.Frame(self)
-        self.button_frame.pack(fill="x", padx=10, pady=(0, 10))  # Add padding at the bottom
+        # Create button frame
+        self.button_frame = ttk.Frame(self)
+        self.button_frame.pack(fill="x", padx=10, pady=(0, 10))
 
         # Create screenshot button
-        self.screenshot_button = tk.Button(
+        self.screenshot_button = ttk.Button(
             self.button_frame,
             text="Take Screenshot",
-            command=self.take_screenshot,
-            bg='white',  # white background
-            fg='black',  # black text
-            relief='raised',
-            padx=20,
-            pady=10
+            command=self.take_screenshot
         )
         self.screenshot_button.pack()
 
     def configure_window(self):
-        # Set window properties
-        self.master.attributes('-topmost', True)  # Keep window on top
-        self.master.configure(bg='black')  # Set the main window background to black
-
-        # Configure grid weights
+        self.master.attributes('-topmost', True)
+        self.master.configure(bg='black')
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
@@ -212,11 +206,26 @@ class Application(tk.Frame):
 
 def approach_2():
     root = tk.Tk()
-    root.overrideredirect(True)  # Remove default title bar
-    
     root.configure(bg='black')
     root.geometry("300x250")
+    root.overrideredirect(True)  
 
+    style = ttk.Style()
+    style.theme_use('clam')  # Use 'clam' theme as base
+    
+    # Configure colors for various widget states
+    style.configure('TFrame', background='black')
+    style.configure('TLabel', background='black', foreground='white')
+    style.configure('TButton', 
+                    background='black', 
+                    foreground='white', 
+                    bordercolor='white',
+                    lightcolor='white',
+                    darkcolor='white')
+    style.map('TButton',
+              background=[('active', '#333333')],
+              foreground=[('active', 'white')])
+    
     app = Application(master=root)
     app.mainloop()
 
