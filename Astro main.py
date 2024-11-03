@@ -85,7 +85,6 @@ class Application(tk.Frame):
             justify="left",
             bg='white',  # white background
             fg='black',  # black text
-            relief='sunken',  # Sunken effect
             padx=5,
             pady=5
         )
