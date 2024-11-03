@@ -42,7 +42,7 @@ class Application(tk.Frame):
         self.configure(bg='black')
 
         # Configure the server URL
-        self.SERVER_URL = "http://51.175.62.26:5000/process-image"
+        self.SERVER_URL = "https://aron.danielv.no/process-image"
 
         # Create and configure the main window
         self.create_title_bar()  # Add this line
