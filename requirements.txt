@@ -1,0 +1,4 @@
+setuptools
+pyautogui
+requests
+Pillow
