@@ -29,6 +29,6 @@ Astro AI is a Python application that captures screenshots and sends them to a s
 
 3. run "Astro-Dark.py"
 
-4. let it install the required libraries
+4. Wait for it to automatically install the required libraries
 
 ### Enjoy!
