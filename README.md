@@ -1,4 +1,4 @@
-# Astro AI Screenshot Processor (Dark Mode)
+# Astro AI Screenshot Processor
 
 ## Overview
 
