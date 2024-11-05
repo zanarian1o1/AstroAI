@@ -118,16 +118,14 @@ class Application(tk.Frame):
 
     def update_output_text(self, text):
         self.output_label.config(text=text)
-        # Update the window to calculate new dimensions
         self.master.update_idletasks()
         
-        # Get the required height for the text
+        # Get the required height and width for the text
         text_height = self.output_label.winfo_reqheight()
-        # Get the required width for the text
         text_width = self.output_label.winfo_reqwidth()
         
         # Add padding for the window and ensure space for the button
-        window_height = min(text_height + 150, 800)  # Maximum height of 800 pixels, added more space for button
+        window_height = min(text_height + 200, 1000)  # Maximum height of 800 pixels
         window_width = min(max(300, text_width + 40), 1000)  # Maximum width of 1000 pixels
         
         # Set the new window size
